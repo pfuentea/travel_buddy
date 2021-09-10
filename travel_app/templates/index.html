@@ -1,10 +1,124 @@
-{% extends "base.html" %}
+{% extends './base.html' %}
 
-{% block titulo %}INDEX USUARIO{% endblock %}
+{% block titulo %}INDEX Travels{% endblock %}
 
 {% block contenido %}
-<h1>Bienvenid@: {{request.session.user.name}}</h1>
-<a href="/logout">SALIR DEL SISTEMA</a>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Your Trip Schedules</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <div class="table-responsive">
+                <table id="schedule" class="table table-striped table-bordered" width="100%" >
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Travel start Date</th>
+                            <th>Travel end Date</th>
+                            <th>Plan</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for t in travels %}  
+                        <tr>
+                            <td> {{t.destination}}</td>
+                            <td> {{t.init_date}}</td>
+                            <td> {{t.end_date}}</td>
+                            <td> {{t.plan}}</td>
+                            <td> 
+                                <a href="/remove/{{t.id}}">Cancel</a>                                
+                                {% if t.creator.id == request.session.user.id %}
+                                    <a href="/delete/{{t.id}}">Delete</a>
+                                
+                                {% endif %}
+                            </td>
+                        </tr>       
+                    {% endfor %}
+                    </tbody>    
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>
+                Other User's Travel Plans
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <div class="table-responsive">
+                <table id="other_travel" class="table table-striped table-bordered" width="100%" >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Travel start Date</th>
+                            <th>Travel end Date</th>
+                            <th>Do You Want to Join?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ot in other_travels %}  
+                        <tr>
+                            <td> {{ot.destination}}</td>
+                            <td> {{ot.init_date}}</td>
+                            <td> {{ot.end_date}}</td>
+
+                            <td>
+                                <a href="/join/{{ot.id}}">Join!</a>                                
+                            </td>
+                        </tr>       
+                    {% endfor %}
+                    {% for mt in more_travels %}  
+                        <tr>
+                            <td> {{mt.destination}}</td>
+                            <td> {{mt.init_date}}</td>
+                            <td> {{mt.end_date}}</td>
+
+                            <td>
+                                <a href="/join/{{mt.id}}">Join!</a>                                
+                            </td>
+                        </tr>       
+                    {% endfor %}
+                    </tbody>    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        var oTblReport = $('#schedule')
+        oTblReport.DataTable({
+            "search": 'Buscar',
+            "aLengthMenu":[[5,10,15,25,-1],[5,10,15,25,"All"]],
+            "iDisplayLength":5
+        });
+    });   
+
+    $(document).ready(function() {
+        var oTblReport = $('#other_travel')
+        oTblReport.DataTable({
+            "search": 'Buscar',
+            "aLengthMenu":[[5,10,15,25,-1],[5,10,15,25,"All"]],
+            "iDisplayLength":5
+        });
+    });
+    
+</script>
 
 {% endblock %}
 

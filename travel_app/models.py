@@ -10,16 +10,16 @@ class UserManager(models.Manager):
         errors = {}
 
         if len(postData['name']) < 3:
-            errors['name_len'] = "Nombre debe tener al menos 3 caracteres de largo";
+            errors['name_len'] = "Nombre debe tener al menos 3 caracteres de largo"
 
-        if len(postData['username']) < 3:
-            errors['username_len'] = "Username debe tener al menos 3 caracteres de largo";
-
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['email'] = "correo invalido"
+            
         if not SOLO_LETRAS.match(postData['name']):
             errors['solo_letras'] = "solo letras en nombre por favor"
 
         if len(postData['password']) < 4:
-            errors['password'] = "contraseña debe tener al menos 8 caracteres";
+            errors['password'] = "contraseña debe tener al menos 8 caracteres"
 
         if postData['password'] != postData['password_confirm'] :
             errors['password_confirm'] = "contraseña y confirmar contraseña no son iguales. "
@@ -27,6 +27,15 @@ class UserManager(models.Manager):
         
         return errors
 
+class TravelManager(models.Manager):
+    def validador_basico(self, postData):
+        errors = {}
+        if len(postData['destination']) < 1:
+            errors['destionation_len'] = "Debes agregar un Destination"
+        if len(postData['description']) < 1:
+            errors['description_len'] = "Debes agregar una Description"
+        
+        return errors
 
 class User(models.Model):
     CHOICES = (
@@ -34,7 +43,7 @@ class User(models.Model):
         ("admin", 'Admin')
     )
     name = models.CharField(max_length=100)
-    username = models.CharField(max_length=100)
+    email = models.EmailField(max_length=255, unique=True)
     role = models.CharField(max_length=255, choices=CHOICES)
     password = models.CharField(max_length=70)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,3 +67,4 @@ class Travel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    objects = TravelManager()
