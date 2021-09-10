@@ -9,14 +9,14 @@ class UserManager(models.Manager):
 
         errors = {}
 
-        if len(postData['name']) < 2:
-            errors['firstname_len'] = "nombre debe tener al menos 2 caracteres de largo";
+        if len(postData['name']) < 3:
+            errors['name_len'] = "Nombre debe tener al menos 3 caracteres de largo";
 
-        if not EMAIL_REGEX.match(postData['email']):
-            errors['email'] = "correo invalido"
+        if len(postData['username']) < 3:
+            errors['username_len'] = "Username debe tener al menos 3 caracteres de largo";
 
         if not SOLO_LETRAS.match(postData['name']):
-            errors['solo_letras'] = "solo letras en nombreporfavor"
+            errors['solo_letras'] = "solo letras en nombre por favor"
 
         if len(postData['password']) < 4:
             errors['password'] = "contraseña debe tener al menos 8 caracteres";
@@ -34,7 +34,7 @@ class User(models.Model):
         ("admin", 'Admin')
     )
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=100)
     role = models.CharField(max_length=255, choices=CHOICES)
     password = models.CharField(max_length=70)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,3 +46,15 @@ class User(models.Model):
 
     def __repr__(self):
         return f"{self.name}"
+
+
+class Travel(models.Model):
+    destination = models.CharField(max_length=100)
+    plan = models.CharField(max_length=500)
+    init_date = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(auto_now=True)
+    creator = models.ForeignKey(User, related_name="creados", on_delete = models.CASCADE)
+    fellows = models.ManyToManyField(User, related_name="planificados")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    

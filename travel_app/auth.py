@@ -13,7 +13,7 @@ def logout(request):
 
 def login(request):
     if request.method == "POST":
-        user = User.objects.filter(email=request.POST['email'])
+        user = User.objects.filter(username=request.POST['username'])
         if user:
             log_user = user[0]
 
@@ -22,7 +22,7 @@ def login(request):
                 user = {
                     "id" : log_user.id,
                     "name": f"{log_user}",
-                    "email": log_user.email,
+                    "username": log_user.username,
                     "role": log_user.role
                 }
 
@@ -30,9 +30,9 @@ def login(request):
                 messages.success(request, "Logueado correctamente.")
                 return redirect("/")
             else:
-                messages.error(request, "Password o Email  incorrectos.")
+                messages.error(request, "Password o Username  incorrectos.")
         else:
-            messages.error(request, "Email o password incorrectos.")
+            messages.error(request, "Username o password incorrectos.")
 
 
 
@@ -51,17 +51,17 @@ def registro(request):
                 messages.error(request, value)
             
             request.session['register_name'] =  request.POST['name']
-            request.session['register_email'] =  request.POST['email']
+            request.session['register_username'] =  request.POST['username']
 
         else:
             request.session['register_name'] = ""
-            request.session['register_email'] = ""
+            request.session['register_username'] = ""
 
             password_encryp = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode() 
 
             usuario_nuevo = User.objects.create(
                 name = request.POST['name'],
-                email=request.POST['email'],
+                username=request.POST['username'],
                 password=password_encryp,
                 role=request.POST['role']
             )
@@ -72,7 +72,7 @@ def registro(request):
             request.session['user'] = {
                 "id" : usuario_nuevo.id,
                 "name": f"{usuario_nuevo.name}",
-                "email": usuario_nuevo.email
+                "username": usuario_nuevo.username
             }
             return redirect("/")
 

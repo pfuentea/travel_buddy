@@ -14,13 +14,13 @@
     <div class="container mt-3">
       <div class="row">
         <div class="col-5">
-          <h1>LOGIN DESDE BASE</h1>
+          <h1>Welcome to Travel World!</h1>
     
           <form method="POST">
             {% csrf_token %}
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{request.session.login_email}}">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{request.session.username}}">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
