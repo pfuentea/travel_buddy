@@ -21,7 +21,7 @@
                             <th>Travel start Date</th>
                             <th>Travel end Date</th>
                             <th>Plan</th>
-                            <th>Actions</th>
+                            <th class="dt-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@
                             <td> {{t.init_date}}</td>
                             <td> {{t.end_date}}</td>
                             <td> {{t.plan}}</td>
-                            <td> 
+                            <td class="dt-center"> 
                                 <a href="/remove/{{t.id}}"><i class="bi bi-calendar-x btn btn-warning btn-sm" title="Cancel"></i></a> 
                                 {% if t.creator.id == request.session.user.id %}
                                     <a href="#" trv_id="{{t.id}}" class="btn  btn-sm btn-outline-danger btn-delete-trv" data-bs-toggle="modal" data-bs-target="#DelTrv" title="Delete">

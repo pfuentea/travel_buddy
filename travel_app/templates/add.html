@@ -9,7 +9,7 @@
                 <h1>Add a Trip</h1>
             </div>
         </div>
-        <form action="add" method="POST">
+        <form action="addtrip" method="POST">
             {% csrf_token %}
             <div class="row">
                 <div class="col-8">         
@@ -50,6 +50,12 @@
             </div>
         </form>
     </div>
+    <script>
+        $('#date_init').on('change',function(){
+            fecha_min=$('#date_init').val()
+            $('#date_end').val(fecha_min)
+        });
+    </script>
 {% endblock %}
 
 {% block libreria %}
