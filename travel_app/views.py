@@ -40,7 +40,7 @@ def add(request):
             description=request.POST['description']
             date_init=request.POST['date_init']
             date_end=request.POST['date_end']
-            
+            print(date_init)
             creador=User.objects.get(id=request.session['user']['id'])
             viaje=Travel.objects.create(destination=destination,plan=description,init_date=date_init,end_date=date_end,creator=creador)
             viaje.fellows.add(creador)

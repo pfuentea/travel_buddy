@@ -65,8 +65,8 @@ class User(models.Model):
 class Travel(models.Model):
     destination = models.CharField(max_length=100)
     plan = models.CharField(max_length=500)
-    init_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(auto_now=True)
+    init_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     creator = models.ForeignKey(User, related_name="creados", on_delete = models.CASCADE)
     fellows = models.ManyToManyField(User, related_name="planificados")
     created_at = models.DateTimeField(auto_now_add=True)
