@@ -27,7 +27,11 @@
                     <tbody>
                     {% for t in travels %}  
                         <tr>
-                            <td> {{t.destination}}</td>
+                            <td> 
+                                <a href="/view/{{t.id}}">
+                                    {{t.destination}}
+                                </a>                                
+                            </td>
                             <td> {{t.init_date}}</td>
                             <td> {{t.end_date}}</td>
                             <td> {{t.plan}}</td>
@@ -66,25 +70,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for ot in other_travels %}  
+                    {% for ot in more_travels %}  
                         <tr>
-                            <td> {{ot.destination}}</td>
+                            <td>  
+                                <a href="/view/{{t.id}}">
+                                    {{ot.destination}}
+                                </a> 
+                            </td>
                             <td> {{ot.init_date}}</td>
                             <td> {{ot.end_date}}</td>
-
                             <td>
                                 <a href="/join/{{ot.id}}">Join!</a>                                
-                            </td>
-                        </tr>       
-                    {% endfor %}
-                    {% for mt in more_travels %}  
-                        <tr>
-                            <td> {{mt.destination}}</td>
-                            <td> {{mt.init_date}}</td>
-                            <td> {{mt.end_date}}</td>
-
-                            <td>
-                                <a href="/join/{{mt.id}}">Join!</a>                                
                             </td>
                         </tr>       
                     {% endfor %}

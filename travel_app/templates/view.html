@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block titulo %}INDEX USUARIO{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>{{viaje.destination}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p><h4>Planned by: {{viaje.creator.name}}</h4></p>
+            <p><h4>Description: {{viaje.plan}}</h4></p>
+            <p><h4>Travel Date From:: {{viaje.init_date}}</h4></p>
+            <p><h4>Travel Date To: {{viaje.end_date}}</h4></p>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Other Users Joining the Trip:</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul>
+                {% for user in viaje.fellows.all %}
+                {% if user.name != request.session.user.name %}
+                    <li>
+                        <h4>{{user.name}}</h4>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block libreria %}
+{% endblock %}

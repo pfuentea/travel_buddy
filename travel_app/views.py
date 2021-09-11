@@ -10,12 +10,11 @@ def index(request):
     #viajes a los que voy
     travels = Travel.objects.filter(fellows=target).all()
     #viajes de los que no soy creador
-    other_travels = Travel.objects.exclude(creator=target).all()
-    #viajes de los que si soy creador
-    more_travels=Travel.objects.filter(creator=target).all()
+    #other_travels = Travel.objects.exclude(creator=target).all()
+    #viajes de los que no pertenezco
+    more_travels=Travel.objects.exclude(fellows=target).all()
     context = {
         'travels': travels,
-        "other_travels":other_travels,
         "more_travels":more_travels
     }
     return render(request, 'index.html', context)
@@ -73,17 +72,9 @@ def delete(request,travel_id):
 
 @login_required
 def view(request,travel_id):
-
+    viaje=Travel.objects.get(id=travel_id)
     context = {
-        'saludo': 'Hola'
+        "viaje":viaje
     }
     return render(request, 'view.html', context)
 
-
-@login_required
-def detail(request):
-
-    context = {
-        'saludo': 'Hola'
-    }
-    return render(request, 'detail.html', context)
