@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
-{% block titulo %}INDEX USUARIO{% endblock %}
+{% block titulo %}Travel Details{% endblock %}
 
 {% block contenido %}
 <style>
-
-
-/* Glassmorphism card effect */
 .card {
     backdrop-filter: blur(9px) saturate(139%);
     -webkit-backdrop-filter: blur(9px) saturate(139%);
@@ -14,7 +11,6 @@
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
 }
-
 </style>
 <div class="container ">
     <div class="card w-50 mt-4">
@@ -23,7 +19,6 @@
             <p class="card-text text-light">Planned by: {{viaje.creator.name}}</p>
             <p class="card-text text-light">Description: {{viaje.plan}}</p>
             <p class="card-text text-light">Travel Date From: {{viaje.init_date}}</p>
-            
             <p class="card-text text-light">Travel Date To: {{viaje.end_date}}</p>
             <hr>
             <h3 class="card-title text-light">Other Users Joining the Trip:</h3>
@@ -37,10 +32,6 @@
         </div>
     </div>      
 </div>
-
-
-
-
 {% endblock %}
 
 {% block libreria %}

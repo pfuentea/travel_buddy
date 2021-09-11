@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
-{% block titulo %}INDEX USUARIO{% endblock %}
+{% block titulo %}Add a new Travel{% endblock %}
 
 {% block contenido %}
-
     <div class="container">
         <div class="row">
             <div class="col-8">
@@ -30,7 +29,7 @@
                     <div class="row">
                         <div class="col-6">         
                             <label for="description" class="form-label">Travel date from </label>
-                            <input type="date" class="form-control" id="date_init" name="date_init" required >
+                            <input type="date" class="form-control" id="date_init" name="date_init" required value="{{today}}">
                         </div>
                     </div>
                     
@@ -39,7 +38,7 @@
                     <div class="row">
                         <div class="col-6">         
                             <label for="description" class="form-label">Travel date to</label>
-                            <input type="date" class="form-control" id="date_end" name="date_end" required >
+                            <input type="date" class="form-control" id="date_end" name="date_end" required value="{{today}}">
                         </div>
                     </div>
                 </div>
@@ -51,13 +50,6 @@
             </div>
         </form>
     </div>
-
-
-
-
-
-
-
 {% endblock %}
 
 {% block libreria %}

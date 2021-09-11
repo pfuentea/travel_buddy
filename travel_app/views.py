@@ -40,7 +40,6 @@ def add(request):
             description=request.POST['description']
             date_init=request.POST['date_init']
             date_end=request.POST['date_end']
-            print(date_init)
             creador=User.objects.get(id=request.session['user']['id'])
             viaje=Travel.objects.create(destination=destination,plan=description,init_date=date_init,end_date=date_end,creator=creador)
             viaje.fellows.add(creador)
@@ -55,7 +54,7 @@ def join(request,travel_id):
     messages.success(request, "Vamos de viaje!")
     return redirect('/')
 
-#LISTO
+#listo
 @login_required
 def remove(request,travel_id):
     fellow=User.objects.get(id=request.session['user']['id'])
@@ -64,7 +63,7 @@ def remove(request,travel_id):
     messages.warning(request, "Removido del viaje!")
     return redirect('/')
 
-#solo falta el modal
+#listo
 @login_required
 def delete(request,travel_id):
     viaje=Travel.objects.get(id=travel_id)
@@ -72,6 +71,7 @@ def delete(request,travel_id):
     messages.warning(request, "Viaje eliminado!")
     return redirect('/')
 
+#listo
 @login_required
 def view(request,travel_id):
     viaje=Travel.objects.get(id=travel_id)
