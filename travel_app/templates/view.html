@@ -3,41 +3,41 @@
 {% block titulo %}INDEX USUARIO{% endblock %}
 
 {% block contenido %}
+<style>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>{{viaje.destination}}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p><h4>Planned by: {{viaje.creator.name}}</h4></p>
-            <p><h4>Description: {{viaje.plan}}</h4></p>
-            <p><h4>Travel Date From:: {{viaje.init_date}}</h4></p>
-            <p><h4>Travel Date To: {{viaje.end_date}}</h4></p>            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h2>Other Users Joining the Trip:</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <ul>
-                {% for user in viaje.fellows.all %}
-                {% if user.name != request.session.user.name %}
-                    <li>
-                        <h4>{{user.name}}</h4>
-                    </li>
-                    {% endif %}
-                {% endfor %}
 
-            </ul>
+/* Glassmorphism card effect */
+.card {
+    backdrop-filter: blur(9px) saturate(139%);
+    -webkit-backdrop-filter: blur(9px) saturate(139%);
+    background-color: rgba(15, 44, 85, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+</style>
+<div class="container ">
+    <div class="card w-50 mt-4">
+        <div class="card-body">
+            <h5 class="card-title text-light">{{viaje.destination}}</h5>
+            <p class="card-text text-light">Planned by: {{viaje.creator.name}}</p>
+            <p class="card-text text-light">Description: {{viaje.plan}}</p>
+            <p class="card-text text-light">Travel Date From: {{viaje.init_date}}</p>
+            
+            <p class="card-text text-light">Travel Date To: {{viaje.end_date}}</p>
+            <hr>
+            <h3 class="card-title text-light">Other Users Joining the Trip:</h3>
+            {% for user in viaje.fellows.all %}
+            {% if user.name != request.session.user.name %}
+                <p class="card-text text-light">
+                    {{user.name}}
+                </p>
+                {% endif %}
+            {% endfor %}
         </div>
-    </div>
+    </div>      
 </div>
+
 
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 import re
+from datetime import date
 
 # Create your models here.
 class UserManager(models.Manager):
@@ -18,22 +19,26 @@ class UserManager(models.Manager):
         if not SOLO_LETRAS.match(postData['name']):
             errors['solo_letras'] = "solo letras en nombre por favor"
 
-        if len(postData['password']) < 4:
+        if len(postData['password']) < 8:
             errors['password'] = "contraseña debe tener al menos 8 caracteres"
 
         if postData['password'] != postData['password_confirm'] :
             errors['password_confirm'] = "contraseña y confirmar contraseña no son iguales. "
 
-        
         return errors
 
 class TravelManager(models.Manager):
     def validador_basico(self, postData):
         errors = {}
+        today= date.today().strftime('%Y-%m-%d')
         if len(postData['destination']) < 1:
             errors['destionation_len'] = "Debes agregar un Destination"
         if len(postData['description']) < 1:
             errors['description_len'] = "Debes agregar una Description"
+        if postData['date_init'] < today:    
+            errors["date_init"] ="La fecha inicial debe ser superior a hoy"
+        if postData['date_init'] > postData['date_end']:    
+            errors["date_init"] ="La fecha final no puede ser inferior a la inicial"
         
         return errors
 

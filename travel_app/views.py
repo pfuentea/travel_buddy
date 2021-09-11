@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 import bcrypt
 from .decorators import login_required
 from .models import Travel, User
+from datetime import date
 
 @login_required
 def index(request):
@@ -23,8 +24,9 @@ def index(request):
 @login_required
 def add(request):
     if request.method=='GET':
+        today= date.today().strftime('%Y-%m-%d')
         context = {
-            'saludo': 'Hola'
+            "today":today
         }
         return render(request, 'add.html', context)
     if request.method =='POST':
